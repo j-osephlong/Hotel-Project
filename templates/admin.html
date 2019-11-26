@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename = 'authModule.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename = 'adminModule.js') }}"></script>        
+        <script type="text/javascript" src="{{ url_for('static', filename = 'roomModule.js') }}"></script>        
+        <script type="text/javascript" src="{{ url_for('static', filename = 'userModule.js') }}"></script>        
+        <link rel="stylesheet" type="text/css" media="screen and (min-width: 600px)" href="{{ url_for('static', filename = 'style.css') }}">        
+    
+    </head>
+    <body>
+        
+        <p class="header_text" style="margin: 15px;"><b>Welcome,<br>Admin</b></p>
+        <div style="margin: 15px;">
+            <button type="button" onclick="getUsers()">View Users</button>
+            <button type="button" onclick="getAccountRequests()">View Account Requests</button>
+            <button type="button" onclick="getLogs()">View Logs</button>
+            <button type="button" onclick="getRoomsAdmin()">View Rooms</button>
+
+        </div>
+
+        <div id="control_box"></div>
+        <!-- <div class="edit-page">
+            <div class="box" style="font-size: 24px;">
+                <b>Edit Room F:2 R:1</b>
+                <input type="text"></input>
+            </div>
+        </div> -->
+
+    </body>
+</html>

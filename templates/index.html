@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'style.css') }}"> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename = 'authModule.js') }}"></script>       
+    </head>
+    <script>
+        var noAccBody = `
+                            <div style="width: 100%; height:100%; display:flex">
+                                <div id="form-box">
+                                    <div class="header-text">Welcome to<br>_____ Hotel</div>
+                                    <p>Would you like to log in,<br>
+                                        or browse as a guest?</p>
+                                    <button type="button" onclick="window.location.href = '/login'" st)>Login</button><br>
+                                    <button type="button" onclick="window.location.href = '/listings'" st)>Browse as Guest</button>
+                                </div>
+                            </div>
+                        `
+        var userBody = `
+                            <div style="width: 100%; height:100%; display:flex">
+                                <div id="form-box">
+                                    <div class="header-text">Welcome to<br>_____ Hotel</div>
+                                    <p>Would you like to browse listings,<br>
+                                        or manage your account?</p>
+                                    <button type="button" onclick="window.location.href = '/listings'" st)>Browse</button>
+                                    <button type="button" onclick="window.location.href = '/account'" st)>Manage Account</button><br>
+                                    <button type="button" onclick="logOut()" st)>Log Out</button>
+                                </div>
+                            </div>
+                        `
+        var adminBody = `
+                            <div id="form-box">
+                                <div class="header-text">Welcome to<br>_____ Hotel</div>
+                                <p>Would you like to browse listings,<br>
+                                    or go to Admin Tools?</p>
+                                <button type="button" onclick="window.location.href = '/listings'" st)>Browse</button>
+                                <button type="button" onclick="window.location.href = '/admin'" st)>Admin Tools</button><br>
+                                <button type="button" onclick="logOut()" st)>Log Out</button>
+                            </div>
+                        `
+        var agentBody = `
+                            <div id="form-box">
+                                <div class="header-text">Welcome to<br>_____ Hotel</div>
+                                <p>Would you like to browse listings,<br>
+                                    or go to Agent Tools?</p>
+                                <button type="button" onclick="window.location.href = '/listings'" st)>Browse</button>
+                                <button type="button" onclick="window.location.href = '/account'" st)>Agent Tools</button><br>
+                                <button type="button" onclick="logOut()" st)>Log Out</button>
+                            </div>
+                        `
+        document.addEventListener("DOMContentLoaded", function(event){
+            account = authcheck()
+            if (!account['accountExists'])
+            {
+                $(document.body).html(noAccBody)
+            }
+            else if (account['privilege'] == 'user')
+            {
+                $(document.body).html(userBody)
+            }
+            else if (account['privilege'] == 'admin')
+            {
+                $(document.body).html(adminBody)
+            }
+            else if (account['privilege'] == 'agent')
+            {
+                $(document.body).html(agentBody)
+            }  
+        });
+        
+    </script>
+
+    <body background="{{ url_for('static', filename = 'bg-photo.jpg') }}" style="background-size: cover;">
+        
+    </body>
+</html>

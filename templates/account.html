@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" media="screen and (min-width: 600px)" href="{{ url_for('static', filename = 'style.css') }}">        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename = 'authModule.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename = 'userModule.js') }}"></script>
+
+    </head>
+
+    <script>
+        account = authcheck()
+        document.addEventListener("DOMContentLoaded", function(event){
+            if (!account['accountExists'])
+                window.location.href = '/login'
+            $('#username').html(account['username'])
+
+            if (account['privilege'] == 'agent')
+                $('.sidebar').append(
+                    $('<div class="list-item"><p>Clients</p></div>').click(function()
+                        {showClients();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')})
+                )
+                .append(
+                    $('<div class="list-item"><p>Add Client</p></div>').click(function()
+                        {addClientDialog();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')})
+                )
+                
+        })
+    </script>
+
+    <body style="background-color: white">
+        <div style="display:flex; flex-flow:column; height: 100%;">
+            <div class="header">
+                <p id='username'></p>
+                <p onclick="window.location.href = '/'">Home</p>
+                <p onclick="window.location.href = '/listings'">Listings</p>
+            </div>
+            <div style="display: flex;flex-flow: row;height: 100%;width: 100%;">
+                <div class="sidebar">
+                    <div class="list-item" onclick="$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')">
+                        <p>User Info</p>
+                    </div>
+                    <div class="list-item" onclick="showBookings();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')">
+                        <p>Bookings</p>                    
+                    </div>
+                    <div class="list-item" onclick="changePassDialog();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')">
+                        <p>Change Password</p>                    
+                    </div>
+                    <div class="list-item" onclick="logOut();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')">
+                        <p>Log Out</p>                    
+                    </div>
+                </div>
+                <div id="control-box">
+                        <div class="item">
+                            <div class="header-text">Please choose an option from the sidebar.</div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" media="screen and (min-width: 600px)" href="{{ url_for('static', filename = 'style.css') }}">        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename = 'authModule.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename = 'roomModule.js') }}"></script>  
+
+    </head>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event){
+            if (authcheck()['accountExists'] && authcheck()['privilege'] != 'agent')
+                $('.header').append("<p onclick=\"window.location.href = '/account'\">My Account</p>")
+            if (authcheck()['privilege'] == 'admin')
+                $('.header').append("<p onclick=\"window.location.href = '/admin'\">Admin</p>")
+            if (authcheck()['privilege'] == 'agent')
+                $('.header').append("<p onclick=\"window.location.href = '/account'\">Agent</p>")
+
+            getRooms(true)
+        })
+    </script>
+
+    <body style="background-color: white">
+        
+
+        <div style="display:flex; flex-flow:column; height: 100%;">
+            <div class="header">
+                <p onclick="window.location.href = '/'">Home</p>
+            </div>
+            <div style="display: flex;flex-flow: row;height: 100%;width: 100%;">
+                <div class="sidebar">
+                    <div class="list-item" style="padding: 15px;text-align: left;">
+                        Choose a Date<br>
+                        <input type="date" id="date-input" style="width: 100%;">
+                    </div>
+
+                    <div class="list-item" style="padding: 15px;background-color: #1d1d1d;text-align: left;">
+                        Select features<br>
+                        
+                        <input type="checkbox" id="microwave" name="Microwave" checked> Microwave <br>
+                        <input type="checkbox" id="balcony" name="Balcony" checked> Balcony <br> 
+                        <input type="checkbox" id="ethernet" name="Ethernet" checked> Ethernet <br>
+                        <input type="checkbox" id="Wifi" name="Wifi" checked> Wifi <br>
+                        <input type="checkbox" id="TV" name="TV" checked> TV <br>
+                        <select id="bed-type" style="text-align: left;"> 
+                            <option value="single">Single</option>
+                            <option value="twin">Twin</option>
+                            <option value="double">Double</option>
+                            <option value="queen">Queen</option>
+                            <option value="king">King</option>
+                        </select> Bed Type <br>
+                        <select id="bed-amount" style="text-align: left;"> 
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select> Bed Amount <br>
+                    </div>
+                    <div class="list-item" style="text-align: center;padding: 15px;"><button onclick="getRooms()">Search</button></div>
+                </div>
+    
+                <div id="listing-box">
+                    <div class="item">
+                        Room Description<br>
+                        Room/Floor Num<br>
+                        Price per Night
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>
