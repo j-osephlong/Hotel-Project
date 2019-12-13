@@ -147,6 +147,8 @@ function roomPopUp(id)
 
 function getRooms(all = false)
 {
+    $("#listing-box").html("")  
+
     json_msg = JSON.stringify(
         {
             'date': document.getElementById('date-input').value, 
@@ -155,7 +157,7 @@ function getRooms(all = false)
             'ethernet': document.getElementById('ethernet').checked,
             'TV': document.getElementById('TV').checked,
             'bed-type': document.getElementById('bed-type').options[document.getElementById('bed-type').selectedIndex].value,
-            'bed-amount': document.getElementById('bed-amount').options[document.getElementById('bed-type').selectedIndex].value,
+            'bed-amount': document.getElementById('bed-amount').options[document.getElementById('bed-amount').selectedIndex].value,
             'all':all
         }
     )
@@ -171,7 +173,6 @@ function getRooms(all = false)
         ).done(function(res)
         {
             res = JSON.parse(res)
-            $("#listing-box").html("")  
 
             res.forEach(room =>{
                 roomid=''

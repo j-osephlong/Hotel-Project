@@ -9,24 +9,44 @@
         <link rel="stylesheet" type="text/css" media="screen and (min-width: 600px)" href="{{ url_for('static', filename = 'style.css') }}">        
     
     </head>
-    <body>
-        
-        <p class="header_text" style="margin: 15px;"><b>Welcome,<br>Admin</b></p>
-        <div style="margin: 15px;">
-            <button type="button" onclick="getUsers()">View Users</button>
-            <button type="button" onclick="getAccountRequests()">View Account Requests</button>
-            <button type="button" onclick="getLogs()">View Logs</button>
-            <button type="button" onclick="getRoomsAdmin()">View Rooms</button>
 
-        </div>
+    <script>
+        account = authcheck()
+        document.addEventListener("DOMContentLoaded", function(event){
+            
+                
+        })
+    </script>
 
-        <div id="control_box"></div>
-        <!-- <div class="edit-page">
-            <div class="box" style="font-size: 24px;">
-                <b>Edit Room F:2 R:1</b>
-                <input type="text"></input>
+    <body style="background-color: white">
+        <div style="display:flex; flex-flow:column; height: 100%;">
+            <div class="header">
+                <p>Admin</p>
+                <p onclick="window.location.href = '/'">Home</p>
+                <p onclick="window.location.href = '/listings'">Listings</p>
+                <p onclick="window.location.href = '/account'">Account</p>
             </div>
-        </div> -->
-
+            <div style="display: flex;flex-flow: row;height: 100%;width: 100%;">
+                <div class="sidebar">
+                    <div class="list-item" onclick="getUsers();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')">
+                        <p>Users</p>
+                    </div>
+                    <div class="list-item" onclick="getRoomsAdmin();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')">
+                        <p>Rooms</p>                    
+                    </div>
+                    <div class="list-item" onclick="getAccountRequests();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')">
+                        <p>Account Requests</p>                    
+                    </div>
+                    <div class="list-item" onclick="getLogs();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')">
+                        <p>Database Logs</p>                    
+                    </div>
+                </div>
+                <div id="control_box">
+                        <div class="item">
+                            <div class="header-text">Please choose an option from the sidebar.</div>
+                        </div>
+                    </div>
+            </div>
+        </div>
     </body>
 </html>

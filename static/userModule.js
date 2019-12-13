@@ -2,6 +2,7 @@ var selectedClient = null
 
 function showBookings()
 {
+    account = authcheck()
     $.ajax(
         {
             url: '/getbookings',
@@ -23,13 +24,25 @@ function showBookings()
                 $('#control-box').append(
                     $('<div class="item"></div>')
                     .append(
-                        $('<p>'+booking['bookingID']+'</p>')
+                        $('<p>'+booking['date']+'</p>')
+                    )
+                    .append(
+                        $('<p> Floor '+booking['floornumber']+ ', Room '+booking['roomnumber']+'</p>')
+                    )
+                    .append(
+                        $('<p>Booking '+booking['bookingID'] + '</p>')
                     )
                     .attr('id', booking['bookingID'])
                     .click(function(){getReciept($(this).attr('id'))})
 
                     //add more
                 )
+
+                if (account['privilege'] == 'agent')
+                        $('#'+booking['bookingID']).append(
+                            $('<p>Client Name: ' + booking['customer_name'] +'</p>')
+
+                        )
             });
         })
 }

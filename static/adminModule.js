@@ -1,5 +1,6 @@
 var selectedUser = null;
 var currentRoomJSON = null;
+var selectedRoom = null;
 
 function approveUser(username)
 {
@@ -20,6 +21,27 @@ function approveUser(username)
     })
 
     getUsers()
+}
+
+function deleteRoom()
+{
+    if (selectedRoom == null)
+    {
+        alert("No room selected.")
+        return;
+    }
+    
+    $.ajax(
+    {
+        url: '/admin_deleteroom',
+        contentType: "application/json",
+        // dataType: "json", this prevents done from firing
+        data: JSON.stringify({'token':$.cookie('jwtauth_token'), 'roomid':selectedRoom}),
+        type: 'POST'
+    }).done(function (res) 
+    {
+        alert(res['code'] + ", " + res['message'])
+    })
 }
 
 function getUsers()
@@ -120,6 +142,9 @@ function getRoomsAdmin()
             $('<button>Add Room</button>').attr('onclick', 'createRoomDialog()')
         ) .append(
             $('<button>Edit Room</button>').attr('onclick', 'editRoomDialog()')
+        )
+        .append(
+            $('<button>Delete Room</button>').attr('onclick', 'deleteRoom()')
         ) 
 
         res.forEach(room => {
@@ -151,6 +176,7 @@ function getRoomsAdmin()
                 {
                     $(e.currentTarget).css('background-color', 'cornflowerblue').siblings().css('background-color', 'inherit')
                     currentRoomJSON = getRoom($(e.currentTarget).attr('id'));
+                    selectedRoom = $(e.currentTarget).attr('id');
                 })
             )
         });   
@@ -185,7 +211,7 @@ function submitRoomEdit()
             data: JSON.stringify({'token':$.cookie('jwtauth_token'), 'update': currentRoomJSON}),
             type: 'POST'
         }).done(function (res){
-            alert(res)  
+            alert(res['code'] + ", " + res['message'])  
         })
 
     $(".popup").remove()

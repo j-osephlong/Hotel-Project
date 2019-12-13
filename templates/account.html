@@ -24,7 +24,11 @@
                     $('<div class="list-item"><p>Add Client</p></div>').click(function()
                         {addClientDialog();$(this).css('background-color', '#1d1d1d').siblings().css('background-color', '#212121')})
                 )
-                
+            
+            if (account['privilege'] == 'admin')
+                $('.header').append(
+                        $('<p onclick="window.location.href = \'/admin\'">Admin</p>')
+                    )
         })
     </script>
 

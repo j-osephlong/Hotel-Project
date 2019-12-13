@@ -73,12 +73,12 @@ def searchrooms():
     
     if data['bed-type']!=None or data['microwave']!=None or data['balcony']!=None or data['ethernet']!=None or data['TV']!=None or data['bed-amount']!=None:    
         feature_args = 'WHERE 1 {be} {mi} {ba} {et} {tv} {be_a}'.format(
-            be = 'AND bed =  \''+data['bed-type']+'\'' if data['bed-type'] != None else '', 
-            mi = 'AND microwave = \''+str(data['microwave']).lower()+'\'' if data['microwave']!=None else '',
-            ba = 'AND balcony = \''+str(data['balcony']).lower()+'\'' if data['balcony']!=None else '',
-            et = 'AND ethernet = \''+str(data['ethernet']).lower()+'\'' if data['ethernet']!=None else '',
-            tv = 'AND TV = \''+str(data['TV']).lower()+'\'' if data['TV']!=None else '',
-            be_a = 'AND bedamount ='+data['bed-amount'] if data['bed-amount']!=None else ''
+            be = 'AND bed =  \''+data['bed-type']+'\'' if data['bed-type'] != 'null' else '', 
+            mi = 'AND microwave = \''+str(data['microwave']).lower()+'\'' if data['microwave']!=False else '',
+            ba = 'AND balcony = \''+str(data['balcony']).lower()+'\'' if data['balcony']!=False else '',
+            et = 'AND ethernet = \''+str(data['ethernet']).lower()+'\'' if data['ethernet']!=False else '',
+            tv = 'AND TV = \''+str(data['TV']).lower()+'\'' if data['TV']!=False else '',
+            be_a = 'AND bedamount ='+data['bed-amount'] if data['bed-amount']!='null' else ''
         )
 
         print(feature_args)

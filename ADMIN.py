@@ -30,6 +30,19 @@ def banuser():
         return {'code': 'success'}
     return {'code': 'failed'}
 
+@admin.route("/admin_deleteroom", methods=['POST'])
+def deleteRoom():
+    data = json.loads(request.data)
+    account = AM.checktoken(data['token'])
+
+    if account[1] != 'admin':
+        return {'code' : 'failed', 'message' : 'TYou do not have high enough privilege to do that.'}
+
+    DB.delete('rooms', 'floornumber = {fn} AND roomnumber = {rn}'.format(fn = data['roomid'][:2], rn = data['roomid'][2:]))
+    DB.delete('room_info', 'floornumber = {fn} AND roomnumber = {rn}'.format(fn = data['roomid'][:2], rn = data['roomid'][2:]))
+    return {'code' : 'success', 'message' : 'Room deleted.'}
+
+
 @admin.route("/setuserpriv", methods=['POST'])
 def setuserpriv():
     data = json.loads(request.data)

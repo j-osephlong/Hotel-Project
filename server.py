@@ -23,7 +23,7 @@ app.register_blueprint(ROOMS.rooms)
 
 #FOR DEBUG ONLY
 #HUGE PRIVACY AND SECURITY RISK
-#NOT FOR DEPLOYMENTs
+#NOT FOR DEPLOYMENT
 
 @app.route("/table/<table>")
 def table(table):
